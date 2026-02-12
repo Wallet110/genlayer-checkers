@@ -1,0 +1,35 @@
+body { background: #0a0a0a; color: white; font-family: sans-serif; text-align: center; }
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(10, 50px);
+    grid-template-rows: repeat(10, 50px);
+    border: 5px solid #333;
+    margin: 20px auto;
+    width: 500px;
+}
+
+.square { width: 50px; height: 50px; }
+.dark { background-color: #1a1a1a; }
+.light { background-color: #2a2a2a; }
+
+.piece {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    /* Ensure this filename matches the file you uploaded! */
+    mask-image: url('1004831759.jpg'); 
+    -webkit-mask-image: url('1004831759.jpg');
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+
+.red { background-color: #ff4136; filter: drop-shadow(0 0 5px #ff4136); }
+.blue { background-color: #0074d9; filter: drop-shadow(0 0 5px #0074d9); }
+
+/* Top 3 Badge Styling */
+#rank-list li:nth-child(1)::after { content: " 🏆 GENMASTER"; color: gold; }
+#rank-list li:nth-child(2)::after { content: " 🥈 LAYERPRO"; color: silver; }
+#rank-list li:nth-child(3)::after { content: " 🥉 SEEDLING"; color: #cd7f32; }
