@@ -1,0 +1,26 @@
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
+
+const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
+
+app.use(express.static(__dirname));
+
+let players = {};
+let leaderboard = []; // Simple in-memory leaderboard
+
+io.on('connection', (socket) => {
+    socket.on('joinGame', (username) => {
+        players[socket.id] = { username: username || `Guest_${socket.id.substring(0,4)}`, wins: 0 };
+        console.log(`${players[socket.id].username} joined.`);
+    });
+
+    socket.on('movePiece', (data) => {
+        // Broadcast the move to the other player in the room
+        socket.broadcast.emit('updateBoard', data);
+    });
+});
+
+server.listen(3000, () => console.log('GenLayer Server running on port 3000'));
