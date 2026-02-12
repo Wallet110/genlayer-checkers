@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="ui">
+        <h1>GENLAYER CHECKERS TOURNAMENT</h1>
+        <div id="auth">
+            <input type="text" id="username" placeholder="Enter Username">
+            <button onclick="startGame()">Play Now</button>
+            <button onclick="startGame(true)">Play as Guest</button>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <div id="board"></div>
+        <div id="leaderboard">
+            <h3>Top 10 Rankings</h3>
+            <ul id="rank-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const board = document.getElementById('board');
+
+        function createBoard() {
+            for (let i = 0; i < 100; i++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                square.classList.add((Math.floor(i / 10) + i) % 2 === 0 ? 'light' : 'dark');
+                
+                // Logic to place 20 Red and 20 Blue GenLayer seeds
+                if (square.classList.contains('dark')) {
+                    if (i < 40) addPiece(square, 'red');
+                    else if (i >= 60) addPiece(square, 'blue');
+                }
+                board.appendChild(square);
+            }
+        }
+
+        function addPiece(container, color) {
+            const piece = document.createElement('div');
+            piece.classList.add('piece', color);
+            // Injects your GenLayer Logo
+            piece.style.maskImage = "url('1004831759.jpg')"; 
+            piece.style.webkitMaskImage = "url('1004831759.jpg')";
+            container.appendChild(piece);
+        }
+
+        createBoard();
+    </script>
+</body>
+</html>
